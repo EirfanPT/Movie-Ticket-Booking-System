@@ -1,8 +1,8 @@
 import streamlit as st
 
-st.title(" Movie Ticket Booking System")
+st.title("Movie Ticket Booking System")
 
-# Input Fields
+# Inputs
 customer_name = st.text_input("Enter Customer Name")
 
 movie_title = st.selectbox(
@@ -15,30 +15,38 @@ show_time = st.selectbox(
     ["-- Select Time --", "10:00 AM", "2:00 PM", "8:00 PM"]
 )
 
-#  Seat Type
 seat_type = st.radio(
     "Select Seat Type",
     ["Standard", "Premium"],
     index=None
 )
 
-# Validation
-is_valid = (
-    customer_name.strip() != "" and
-    movie_title != "-- Select Movie --" and
-    show_time != "-- Select Time --" and
-    seat_type is not None
-)
-
 # Button
-if st.button("Book Ticket", disabled=not is_valid):
+if st.button("Book Ticket"):
     try:
-        st.success(" Booking Successful!")
-        st.write("###  Booking Details")
-        st.write(f"**Customer Name:** {customer_name}")
-        st.write(f"**Movie Title:** {movie_title}")
-        st.write(f"**Show Time:** {show_time}")
-        st.write(f"**Seat Type:** {seat_type}")
+        # Validation
+        if customer_name.strip() == "":
+            raise ValueError("Customer name cannot be empty")
 
-    except Exception as e:
-        st.error(f" Unexpected Error: {e}")
+        if movie_title == "-- Select Movie --":
+            raise ValueError("Movie title must be selected")
+
+        if show_time == "-- Select Time --":
+            raise ValueError("Show time must be selected")
+
+        if seat_type is None:
+            raise ValueError("Seat type must be selected")
+
+        # Success Output
+        st.success("Booking successful")
+        st.write("Booking Information:")
+        st.write("Customer Name:", customer_name)
+        st.write("Movie Title:", movie_title)
+        st.write("Show Time:", show_time)
+        st.write("Seat Type:", seat_type)
+
+    except ValueError as ve:
+        st.error(str(ve))   
+
+    except Exception:
+        st.error("An unexpected error occurred")
