@@ -7,17 +7,17 @@ customer_name = st.text_input("Enter Customer Name")
 
 movie_title = st.selectbox(
     "Select Movie Title",
-    ["Avengers", "Kung Fu Panda", "Frozen"]
+    ["-- Select Movie --", "Avengers", "Kung Fu Panda", "Frozen"]
 )
 
 show_time = st.selectbox(
     "Select Show Time",
-    ["10:00 AM", "2:00 PM", "8:00 PM"]
+    ["-- Select Time --", "10:00 AM", "2:00 PM", "8:00 PM"]
 )
 
 seat_type = st.radio(
     "Select Seat Type",
-    ["Standard", "Premium"]
+    ["-- Select Seat Type --", "Standard", "Premium"]
 )
 
 # Button
@@ -27,9 +27,18 @@ if st.button("Book Ticket"):
         if customer_name.strip() == "":
             raise ValueError("Customer name cannot be empty!")
 
-        # Display Output
+        if movie_title == "-- Select Movie --":
+            raise ValueError("Please select a movie!")
+
+        if show_time == "-- Select Time --":
+            raise ValueError("Please select show time!")
+
+        if seat_type == "-- Select Seat Type --":
+            raise ValueError("Please select seat type!")
+
+        # Output
         st.success(" Booking Successful!")
-        st.write("### Booking Details")
+        st.write("###  Booking Details")
         st.write(f"**Customer Name:** {customer_name}")
         st.write(f"**Movie Title:** {movie_title}")
         st.write(f"**Show Time:** {show_time}")
