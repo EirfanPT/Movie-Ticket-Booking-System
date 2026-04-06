@@ -17,8 +17,7 @@ show_time = st.selectbox(
 
 # Seat Type
 st.write("Select Seat Type")
-seat_type = st.radio(
-["Standard", "Premium"],
+seat_type = st.radio("Standard", "Premium",
     index=None   
 )
 
