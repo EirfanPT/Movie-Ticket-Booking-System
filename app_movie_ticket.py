@@ -15,14 +15,14 @@ show_time = st.selectbox(
     ["-- Select Time --", "10:00 AM", "2:00 PM", "8:00 PM"]
 )
 
-# Seat Type
-st.write("Select Seat Type")
+#  Seat Type
 seat_type = st.radio(
-"Standard", "Premium",
-    index=None   
+    "Select Seat Type",
+    ["Standard", "Premium"],
+    index=None
 )
 
-#  Condition to enable button
+# Validation
 is_valid = (
     customer_name.strip() != "" and
     movie_title != "-- Select Movie --" and
@@ -30,7 +30,7 @@ is_valid = (
     seat_type is not None
 )
 
-# Button (disabled if not valid)
+# Button
 if st.button("Book Ticket", disabled=not is_valid):
     try:
         st.success(" Booking Successful!")
