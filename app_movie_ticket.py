@@ -15,28 +15,25 @@ show_time = st.selectbox(
     ["-- Select Time --", "10:00 AM", "2:00 PM", "8:00 PM"]
 )
 
+# Seat Type
+st.write("Select Seat Type")
 seat_type = st.radio(
-    "Select Seat Type",
-    ["-- Select Seat Type --", "Standard", "Premium"]
+    "",
+    ["Standard", "Premium"],
+    index=None   
 )
 
-# Button
-if st.button("Book Ticket"):
+#  Condition to enable button
+is_valid = (
+    customer_name.strip() != "" and
+    movie_title != "-- Select Movie --" and
+    show_time != "-- Select Time --" and
+    seat_type is not None
+)
+
+# Button (disabled if not valid)
+if st.button("Book Ticket", disabled=not is_valid):
     try:
-        # Validation
-        if customer_name.strip() == "":
-            raise ValueError("Customer name cannot be empty!")
-
-        if movie_title == "-- Select Movie --":
-            raise ValueError("Please select a movie!")
-
-        if show_time == "-- Select Time --":
-            raise ValueError("Please select show time!")
-
-        if seat_type == "-- Select Seat Type --":
-            raise ValueError("Please select seat type!")
-
-        # Output
         st.success(" Booking Successful!")
         st.write("###  Booking Details")
         st.write(f"**Customer Name:** {customer_name}")
@@ -44,7 +41,5 @@ if st.button("Book Ticket"):
         st.write(f"**Show Time:** {show_time}")
         st.write(f"**Seat Type:** {seat_type}")
 
-    except ValueError as ve:
-        st.error(f" Error: {ve}")
     except Exception as e:
         st.error(f" Unexpected Error: {e}")
